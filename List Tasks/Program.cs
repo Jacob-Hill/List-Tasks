@@ -66,11 +66,6 @@ namespace List_Tasks
             return result;
         }
 
-        static bool ItemInList(List<int> list, int item)
-        {
-
-        }
-
         static bool ListsContainSameInts(List<int> list1, List<int> list2)
         {
             List<int> list = list1;
@@ -80,13 +75,18 @@ namespace List_Tasks
                 {
                     if (list1[i1] == list2[i2])
                     {
-                        if ()
+                        if (list.Contains(list1[i1])) 
                         {
-
+                            list.Remove(list1[i1]);
                         }
                     }
                 }
             }
+            if(list.Count ==0)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
