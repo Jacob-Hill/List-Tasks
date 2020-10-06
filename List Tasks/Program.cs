@@ -18,10 +18,10 @@ namespace List_Tasks
             Debug.Assert(MinList(testListInt) == testListInt.Min());
             Console.WriteLine("Test Passed");
             //Can't test NegativeList function because currently cant compare lists
-            //Debug.Assert(ListsContainSameInts(testListInt, testListInt));
-            //Console.WriteLine("Test Passed");
-            //Debug.Assert(ListsContainSameInts(testListInt, new List<int> { 1, 1, 2, 3, 4, 5, 6, 7, 4, 6, 4, 8, 9, 1 }));
-            //Console.WriteLine("Test Passed");
+            Debug.Assert(ListsContainSameInts(testListInt, testListInt));
+            Console.WriteLine("Test Passed");
+            Debug.Assert(ListsContainSameInts(testListInt, new List<int> { 1, 1, 2, 3, 4, 5, 6, 7, 4, 6, 4, 8, 9, 1 }));
+            Console.WriteLine("Test Passed");
             Debug.Assert(SimpleListSearch(testListInt, 5));
             Console.WriteLine("Test Passed");
             Debug.Assert(SimpleListSearch(testListInt, 10) == false);
@@ -79,33 +79,21 @@ namespace List_Tasks
 
         static bool ListsContainSameInts(List<int> list1, List<int> list2) // Doesn't Currently Work. Not too sure why
         {
-            List<int> listA = list1;
-            List<int> listB = list2;
-            for (int i1 = 0; i1 < list1.Count; i1++)
+            foreach(int element in list1)//Iterate through every element in list 1 to check if its in list 2
             {
-                for (int i2 = 0; i2 < list2.Count; i2++)
+                if(!list2.Contains(element))
                 {
-                    if (list1[i1] == list2[i2])
-                    {
-                        if (listA.Contains(list1[i1])) 
-                        {
-                            listA.Remove(list1[i1]);
-                        }
-                        if (listB.Contains(list2[i2]))
-                        {
-                            listB.Remove(list2[i2]);
-                        }
-                    }
+                    return false;
                 }
             }
-            if (listA.Count ==0)
+            foreach(int element in list2)//Do the same for list 2
             {
-                if(listB.Count == 0)
+                if(!list1.Contains(element))
                 {
-                    return true;
+                    return false;
                 }
             }
-            return false;
+            return true;
         }
 
         static bool SimpleListSearch(List<int> list, int item)
