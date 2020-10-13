@@ -17,15 +17,17 @@ namespace List_Tasks
             Console.WriteLine("Test Passed");
             Debug.Assert(MinList(testListInt) == testListInt.Min());
             Console.WriteLine("Test Passed");
-            //Can't test NegativeList function because currently cant compare lists
-            //Debug.Assert(ListsContainSameInts(testListInt, testListInt));
-            //Console.WriteLine("Test Passed");
-            //Debug.Assert(ListsContainSameInts(testListInt, new List<int> { 1, 1, 2, 3, 4, 5, 6, 7, 4, 6, 4, 8, 9, 1 }));
-            //Console.WriteLine("Test Passed");
-            Debug.Assert(SimpleListSearch(testListInt, 5));
+            Debug.Assert(ListsContainSameInts(NegativeList(testListNegativeInt), new List<int> { -9, -8, -7, -6, -5, -4, -3, -2, -1 }));
             Console.WriteLine("Test Passed");
-            Debug.Assert(SimpleListSearch(testListInt, 10) == false);
+            Debug.Assert(ListsContainSameInts(testListInt, testListInt));
             Console.WriteLine("Test Passed");
+            Debug.Assert(ListsContainSameInts(testListInt, new List<int> { 1, 1, 2, 3, 4, 5, 6, 7, 4, 6, 4, 8, 9, 1 }));
+            Console.WriteLine("Test Passed");
+            Debug.Assert(SimpleListSearchInt(testListInt, 5));
+            Console.WriteLine("Test Passed");
+            Debug.Assert(SimpleListSearchInt(testListInt, 10) == false);
+            Console.WriteLine("Test Passed");
+            Console.ReadLine();
         }
 
         static int SumList(List<int> list)
@@ -77,38 +79,27 @@ namespace List_Tasks
             return result;
         }
 
-        static bool ListsContainSameInts(List<int> list1, List<int> list2) // Doesn't Currently Work. Not too sure why
+        static bool ListsContainSameInts(List<int> list1, List<int> list2)
         {
-            List<int> listA = list1;
-            List<int> listB = list2;
-            for (int i1 = 0; i1 < list1.Count; i1++)
+            bool result = true;
+            for (int i = 0; i < list1.Count; i++)
             {
-                for (int i2 = 0; i2 < list2.Count; i2++)
+                if (! list2.Contains(list1[i])) 
                 {
-                    if (list1[i1] == list2[i2])
-                    {
-                        if (listA.Contains(list1[i1])) 
-                        {
-                            listA.Remove(list1[i1]);
-                        }
-                        if (listB.Contains(list2[i2]))
-                        {
-                            listB.Remove(list2[i2]);
-                        }
-                    }
+                    result = false;
                 }
             }
-            if (listA.Count ==0)
+            for (int i = 0; i < list2.Count; i++)
             {
-                if(listB.Count == 0)
+                if (!list1.Contains(list2[i]))
                 {
-                    return true;
+                    result = false;
                 }
             }
-            return false;
+            return result;
         }
 
-        static bool SimpleListSearch(List<int> list, int item)
+        static bool SimpleListSearchInt(List<int> list, int item)
         {
             for(int i = 0; i<list.Count; i++)
             {
@@ -120,6 +111,17 @@ namespace List_Tasks
             return false;
         }
 
-
+        static bool BinaryListSearchInt(List<int> list, int item)
+        {
+            List<int> newList = new List<int> { };
+            if (list[list.Count / 2] < item)
+            {
+                for (int i = 0; i < list.Count / 2; i++) 
+                {
+                    newList.Append<int>(list[i]);
+                }
+                BinaryListSearchInt(newList, item);
+            }
+        }
     }
 }
