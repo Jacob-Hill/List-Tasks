@@ -27,6 +27,10 @@ namespace List_Tasks
             Console.WriteLine("Test Passed");
             Debug.Assert(SimpleListSearchInt(testListInt, 10) == false);
             Console.WriteLine("Test Passed");
+            Debug.Assert(BinaryListSearchInt(testListInt, 5));
+            Console.WriteLine("Test Passed");
+            Debug.Assert(BinaryListSearchInt(testListInt, 10) == false);
+            Console.WriteLine("Test Passed");
             Console.ReadLine();
         }
 
@@ -113,15 +117,28 @@ namespace List_Tasks
 
         static bool BinaryListSearchInt(List<int> list, int item)
         {
-            List<int> newList = new List<int> { };
-            if (list[list.Count / 2] < item)
+            int index = list.Count / 2;
+            while (true)
             {
-                for (int i = 0; i < list.Count / 2; i++) 
+                int prevIndex = index;
+                if (list[index] == item)
                 {
-                    newList.Append<int>(list[i]);
+                    return true;
                 }
-                BinaryListSearchInt(newList, item);
+                else if (list[index] > item)
+                {
+                    index = list.Count / 2 + index / 2;
+                }
+                else
+                {
+                    index = list.Count / 2 - index / 2;
+                }
+                if (prevIndex == index + 1 || prevIndex == index - 1) 
+                {
+                    break;
+                }
             }
+            return false;
         }
     }
 }
